@@ -11,3 +11,6 @@
 gradle-app.setting
 !gradle-wrapper.jar
 !gradle-wrapper.properties
+
+## Setup for checkstyle
+./bin/
