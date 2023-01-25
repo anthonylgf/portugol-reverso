@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
 }
 
 group 'br.com.portugol_reverso'
@@ -10,6 +11,7 @@ repositories {
     mavenCentral()
 }
 
+//////////////////////// JAR CONFIGS //////////////////////////////////////////
 jar {
     archiveBaseName = 'portugol-reverso'
     archiveVersion = '0.0.1-SNAPSHOT'
@@ -24,11 +26,27 @@ jar {
 sourceCompatibility = 17
 targetCompatibility = 17
 
+//////////////////////// DEPENDENCY CONFIGS //////////////////////////////////////////
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 }
 
+//////////////////////// TEST CONFIGS //////////////////////////////////////////
 test {
     useJUnitPlatform()
+}
+
+//////////////////////// CHECKSTYLE CONFIGS //////////////////////////////////////////
+checkstyle {
+    toolVersion '10.6.0'
+    configFile file("src/main/resources/checkstyle.xml")
+}
+
+checkstyleMain {
+    source ='src/main/java'
+}
+
+checkstyleTest {
+    source ='src/test/java'
 }
