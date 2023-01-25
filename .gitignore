@@ -3,3 +3,11 @@
 
 ## Ignore JVM files
 *.jar
+
+## Setup for gradle files
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
