@@ -1,0 +1,5 @@
+## Ignore Jetbrains IDE files
+.idea
+
+## Ignore JVM files
+*.jar
