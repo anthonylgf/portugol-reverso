@@ -1,4 +1,4 @@
-grammar Parser;
+grammar Logutrop;
 
 fragmento
     : expressao
@@ -33,8 +33,8 @@ DEFINICAO: '=';
 MAIOR: '>';
 MENOR: '<';
 IGUAL: '==';
-MAIOR_IGUAL: '>=';
-MENOR_IGUAL: '<=';
+MAIORIGUAL: '>=';
+MENORIGUAL: '<=';
 DIFERENTE: '!==';
 
 // Fragments
@@ -138,8 +138,8 @@ OperadoresComparacao
     : MAIOR
     | MENOR
     | IGUAL
-    | MAIOR_IGUAL
-    | MENOR_IGUAL
+    | MAIORIGUAL
+    | MENORIGUAL
     | DIFERENTE
     ;
 
@@ -152,17 +152,17 @@ OperadoresLogicos
 
 expressao
     : Atomos                                                                  #atomo
-    | ('+' | '-') expressao                                                   #unary_modifier
-    | expressao OperadoresAritmeticosMultiplicacaoDivisao expressao           #multiplicacao_divisao
-    | expressao OperadoresAritmeticosAdicaoSubtracao expressao                #adicao_subtracao
+    | ('+' | '-') expressao                                                   #unarymodifier
+    | expressao OperadoresAritmeticosMultiplicacaoDivisao expressao           #multidiv
+    | expressao OperadoresAritmeticosAdicaoSubtracao expressao                #adicaosubtr
     | expressao OperadoresComparacao expressao                                #comparacao
     | expressao OperadoresLogicos expressao                                   #logicos
-    | se_bloco                                                                #condicional
-    | enquanto_bloco                                                          #repeticao
+    | sebloco                                                                #condicional
+    | enquantobloco                                                          #repeticao
     | '(' expressao ')'                                                       #parenteses
     ;
 
-lista_expressoes
+listaexpressoes
     : fragmento*
     ;
 
@@ -173,24 +173,24 @@ definicaovariavel
     ;
 
 // Loops and Conditions definition
-se_bloco
-    : SE expressao bloco_generico senao_se_bloco* senao_bloco? FIM
+sebloco
+    : SE expressao blocogenerico senaosebloco* senaobloco? FIM
     ;
 
-senao_se_bloco
-    : SENAOSE expressao bloco_generico
+senaosebloco
+    : SENAOSE expressao blocogenerico
     ;
 
-senao_bloco
-    : SENAO lista_expressoes
+senaobloco
+    : SENAO listaexpressoes
     ;
 
-enquanto_bloco
-    : ENQUANTO expressao bloco_generico FIM
+enquantobloco
+    : ENQUANTO expressao blocogenerico FIM
     ;
 
-bloco_generico
-    : ':' lista_expressoes
+blocogenerico
+    : ':' listaexpressoes
     ;
 
 // Generic

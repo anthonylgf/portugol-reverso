@@ -1,0 +1,8 @@
+<FindBugsFilter>
+    <Match>
+        <Or>
+            <!-- Ignore Antlr4 generated classes -->
+            <Package name="br.com.portugolreverso.antlr"/>
+        </Or>
+    </Match>
+</FindBugsFilter>

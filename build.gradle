@@ -58,4 +58,12 @@ checkstyleTest {
 generateGrammarSource {
     maxHeapSize = "64m"
     arguments += ["-visitor", "-long-messages"]
+    arguments += ["-no-listener"]
+    arguments += ["-package", "br.com.portugolreverso.antlr"]
+}
+
+////////////////////// SPOTBUGS CONFIGS //////////////////////////////////////
+spotbugs {
+    showProgress = false
+    excludeFilter = file("src/main/resources/spotbugs-supression.xml")
 }
