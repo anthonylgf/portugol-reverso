@@ -2,7 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
-    id "com.github.spotbugs" version "5.0.13"
+    id 'com.github.spotbugs' version '5.0.13'
+    id 'antlr'
 }
 
 group 'br.com.portugol_reverso'
@@ -17,7 +18,7 @@ jar {
     archiveBaseName = 'portugol-reverso'
     archiveVersion = '0.0.1-SNAPSHOT'
     manifest {
-        attributes "Main-Class": "br.com.portugol_reverso.Main"
+        attributes "Main-Class": "br.com.portugolreverso.Main"
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
@@ -31,6 +32,7 @@ targetCompatibility = 17
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+    antlr 'org.antlr:antlr4:4.11.1'
 }
 
 //////////////////////// TEST CONFIGS //////////////////////////////////////////
@@ -50,4 +52,18 @@ checkstyleMain {
 
 checkstyleTest {
     source ='src/test/java'
+}
+
+////////////////////// ANTLR4 CONFIGS /////////////////////////////////////////////
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ["-visitor", "-long-messages"]
+    arguments += ["-no-listener"]
+    arguments += ["-package", "br.com.portugolreverso.antlr"]
+}
+
+////////////////////// SPOTBUGS CONFIGS //////////////////////////////////////
+spotbugs {
+    showProgress = false
+    excludeFilter = file("src/main/resources/spotbugs-supression.xml")
 }

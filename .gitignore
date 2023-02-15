@@ -13,4 +13,17 @@ gradle-app.setting
 !gradle-wrapper.properties
 
 ## Setup for checkstyle
-./bin/
+bin/
+
+## Antlr files
+.antlr/
+
+## VSCode files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
