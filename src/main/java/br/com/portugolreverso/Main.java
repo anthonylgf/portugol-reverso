@@ -1,21 +1,36 @@
 package br.com.portugolreverso;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.file.Path;
+
+import br.com.portugolreverso.errors.InvalidFileException;
+import br.com.portugolreverso.errors.InvalidOptionsException;
+import br.com.portugolreverso.parser.Parser;
+import br.com.portugolreverso.parser.Visitor;
+
 public class Main {
   public static void main(String... args) {
     if (args.length != 1) {
-      throwErrorMessage();
+      throw new InvalidOptionsException();
     }
 
-    System.out.println("Starting project!");
+    var fileStream = getFileStream(args[0]);
+
+    var visitor = new Visitor();
+
+    var parser = new Parser(fileStream, visitor);
+    parser.parseAndExecuteLanguage();
   }
 
-  private static void throwErrorMessage() {
-    final var errorMessage =
-        """
-            Incorrect options while running command, you should run the follow command:
-                $ java -jar [PATH]/portugol-reverso-<VERSION>.jar [FILE-NAME]
-            """;
+  private static FileInputStream getFileStream(String filePath) {
+    var path = Path.of(filePath);
 
-    throw new RuntimeException(errorMessage);
+    try {
+      return new FileInputStream(path.toFile());
+    } catch (FileNotFoundException e) {
+      throw new InvalidFileException(path.toAbsolutePath().toString());
+    }
   }
 }
