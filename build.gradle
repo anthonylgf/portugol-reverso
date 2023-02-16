@@ -4,6 +4,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.spotbugs' version '5.0.13'
     id 'antlr'
+    id 'eclipse'
 }
 
 group 'br.com.portugol_reverso'
@@ -66,4 +67,16 @@ generateGrammarSource {
 spotbugs {
     showProgress = false
     excludeFilter = file("src/main/resources/spotbugs-supression.xml")
+}
+
+//////////////////// ECLIPSE CONFIGS //////////////////////////////////////
+eclipse {
+    classpath {
+        containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
+        file.whenMerged { cp ->
+            def entries = cp.entries;
+            src = new org.gradle.plugins.ide.eclipse.model.SourceFolder('build/generated-src/antlr', null)
+            entries.add(src)
+        } 
+    }
 }
