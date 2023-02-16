@@ -3,6 +3,7 @@ grammar Logutrop;
 fragmento
     : expressao
     | definicaovariavel
+    | command
     ;
 
 // Keywords
@@ -37,6 +38,10 @@ MAIORIGUAL: '>=';
 MENORIGUAL: '<=';
 DIFERENTE: '!==';
 
+// Commands
+ESCREVA : 'avercse';
+IMPRIMIR : 'rimirpmi';
+
 // Fragments
 fragment
 ListaPalavraChaves
@@ -53,6 +58,8 @@ ListaPalavraChaves
     | TEXTO
     | FIM
     | ENQUANTO
+    | ESCREVA
+    | IMPRIMIR
     ;
 
 fragment
@@ -157,8 +164,8 @@ expressao
     | expressao OperadoresAritmeticosAdicaoSubtracao expressao                #adicaosubtr
     | expressao OperadoresComparacao expressao                                #comparacao
     | expressao OperadoresLogicos expressao                                   #logicos
-    | sebloco                                                                #condicional
-    | enquantobloco                                                          #repeticao
+    | sebloco                                                                 #condicional
+    | enquantobloco                                                           #repeticao
     | '(' expressao ')'                                                       #parenteses
     ;
 
@@ -193,7 +200,10 @@ blocogenerico
     : ':' listaexpressoes
     ;
 
-// Generic
+// Generic Commands
+command
+    : IMPRIMIR expressao        #imprimir
+    ;
 
 // Things to skip while processing
 EspacosEmBranco
