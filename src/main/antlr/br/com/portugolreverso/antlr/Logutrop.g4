@@ -1,5 +1,9 @@
 grammar Logutrop;
 
+programa
+    : fragmento*
+    ;
+
 fragmento
     : expressao
     | definicaovariavel
